@@ -2,6 +2,42 @@
 
 GlassBox AutoML is a transparent machine learning library built from scratch with NumPy. The aim is to provide an end-to-end AutoML pipeline that remains readable, explainable, and easy to debug.
 
+> This is my fork of a 5-person UM6P team project. Upstream: [Gyro0/GlassBox-AutoML-Agent](https://github.com/Gyro0/GlassBox-AutoML-Agent) · Package: [glassbox-automl-agent on PyPI](https://pypi.org/project/glassbox-automl-agent/)
+
+## My contribution (Mohammed Khatiri)
+
+I was the top committer (11 of 33 commits). I built:
+
+- the EDA module: profiler, automatic column typing, correlation and outlier detection
+- the matrix helpers, the classification and regression metrics, and the consolidated test suite
+- the MCP server that exposes AutoFit to LLM agents, and the IronClaw web demo
+- the scikit-learn comparison benchmark below
+
+## Results against scikit-learn
+
+Run on 29 Oct 2026 with `benchmarks/sklearn_comparison.py` and its default train/test split. Every GlassBox model lands within 1% of its scikit-learn equivalent.
+
+**Regression, California housing** (20,640 rows, R²)
+
+| Model | GlassBox | scikit-learn |
+| --- | --- | --- |
+| Linear regression | 0.640 | 0.640 |
+| Decision tree | 0.621 | 0.621 |
+| Random forest | 0.691 | 0.686 |
+| k-nearest neighbours | 0.709 | 0.709 |
+
+**Classification, stroke prediction** (5,110 rows, accuracy)
+
+| Model | GlassBox | scikit-learn |
+| --- | --- | --- |
+| Logistic regression | 0.951 | 0.951 |
+| Decision tree | 0.948 | 0.949 |
+| Random forest | 0.951 | 0.951 |
+| Gaussian naive Bayes | 0.571 | 0.571 |
+| k-nearest neighbours | 0.947 | 0.947 |
+
+Only 4.9% of the stroke rows are positive, so predicting "no stroke" every time already scores 0.951. This table shows that GlassBox reproduces scikit-learn, not that the models predict strokes well.
+
 ## Project Goal
 
 The project covers the full machine learning workflow inside the `glassbox/` package:
